@@ -138,23 +138,11 @@ public class Bubble : MonoBehaviour {
 
 		// attach to the first valid neighbor (the list is sorted in order of preference)
 		if (neighbors.Count > 0) {
-
 			return neighbors[0];
 		} else {
 			return null;
 		}
 	}
-
-	private void OnDrawGizmos() {
-		Gizmos.color = Color.green;
-		Vector3 size = Vector3.one / 5f;
-		Gizmos.DrawCube(transform.position, size);
-		if (anchor != null && anchor.connectedBody != null) {
-			Gizmos.DrawCube(anchor.connectedBody.transform.position, size);
-			Gizmos.DrawLine(transform.position, anchor.connectedBody.transform.position);
-		}
-	}
-
 
 	internal bool isLaunched;
 	private void OnCollisionEnter(Collision collision) {
