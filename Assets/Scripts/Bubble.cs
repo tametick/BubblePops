@@ -17,7 +17,7 @@ public class Bubble : MonoBehaviour {
 
 	// logical position in the level grid
 	private IntVector2 gridPosition;
-	private Collider collider;
+	private new Collider collider;
 	// ref to level for checking neighboring bubbles
 	private Level level;
 
@@ -119,8 +119,10 @@ public class Bubble : MonoBehaviour {
 	}
 
 	private void PlayParticleEffect() {
-		particleEffect.GetComponent<ParticleSystem>().startColor = colors[exponent - 1];
-		particleEffect.transform.GetChild(0).GetComponent<ParticleSystem>().startColor = colors[exponent - 1]; ;
+		ParticleSystem.MainModule ps1 = particleEffect.GetComponent<ParticleSystem>().main;
+		ParticleSystem.MainModule ps2 = particleEffect.transform.GetChild(0).GetComponent<ParticleSystem>().main;
+		ps1.startColor = colors[exponent - 1];
+		ps2.startColor = colors[exponent - 1];
 		particleEffect.SetActive(true);
 		particleEffect.transform.position = transform.position - Vector3.forward;
 		particleEffect.transform.parent = transform.parent;
