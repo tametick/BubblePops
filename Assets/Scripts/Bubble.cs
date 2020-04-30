@@ -72,9 +72,8 @@ public class Bubble : MonoBehaviour {
 	}
 
 	internal void Detach() {
+		// break connection to my anchor
 		anchor.breakForce = 0;
-
-		// make it not bounce off of the sidewalls
 		if (anchor.connectedBody != null) {
 			try {
 				Bubble bubble = anchor.connectedBody.GetComponent<Bubble>();
@@ -87,6 +86,8 @@ public class Bubble : MonoBehaviour {
 
 		}
 		anchor.connectedBody = null;
+		
+		// make this bubble not bounce off of the sidewalls
 		SetTrigger(true);
 	}
 
