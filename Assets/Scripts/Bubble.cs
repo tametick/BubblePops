@@ -77,7 +77,10 @@ public class Bubble : MonoBehaviour {
 		// make it not bounce off of the sidewalls
 		if (anchor.connectedBody != null) {
 			try {
-				anchor.connectedBody.GetComponent<Bubble>().connectedToMe.Remove(this);
+				Bubble bubble = anchor.connectedBody.GetComponent<Bubble>();
+				if (bubble != null && bubble.connectedToMe != null) {
+					bubble.connectedToMe.Remove(this);
+				}
 			} catch (System.NullReferenceException e) {
 				Debug.LogWarning($"{e.Message}\n{e.StackTrace.ToString()}");
 			}

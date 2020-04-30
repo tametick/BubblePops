@@ -7,6 +7,7 @@ public class Launcher : MonoBehaviour {
 	// don't allow trajetories more horizontal than this (see usage below)
 	private const float MinTrajectoryY = .35f;
 	private const int launchVelocity = 12;
+	private const float reloadDuration = .25f;
 	[SerializeField]
 	private GameObject bubblePrefab;
 	[SerializeField]
@@ -76,6 +77,11 @@ public class Launcher : MonoBehaviour {
 	// dont process input if not ready
 	private bool isReady;
 	private void Start() {
+		trajectoryRenderer.startWidth = .2f;
+		trajectoryRenderer.endWidth = .1f;
+		trajectoryRenderer.useWorldSpace = true;
+		markerRenderer.enabled = false;
+
 		current = NewBubble();
 		waiting = NewBubble();
 		waiting.GetComponent<Collider>().enabled = false;
@@ -84,10 +90,6 @@ public class Launcher : MonoBehaviour {
 		waiting.transform.position = waitingPosition;
 		waiting.transform.localScale = Vector3.one * waitingBubbleScale;
 
-		trajectoryRenderer.startWidth = .2f;
-		trajectoryRenderer.endWidth = .1f;
-		trajectoryRenderer.useWorldSpace = true;
-		markerRenderer.enabled = false;
 		isReady = true;
 	}
 
@@ -214,8 +216,6 @@ public class Launcher : MonoBehaviour {
 
 		current = waiting;
 		current.GetComponent<Collider>().enabled = true;
-
-		const float reloadDuration = .25f;
 		current.transform
 			.DOScale(1, reloadDuration);
 		current.transform
