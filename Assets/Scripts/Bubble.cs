@@ -130,7 +130,7 @@ public class Bubble : MonoBehaviour {
 		particleEffect.SetActive(true);
 		particleEffect.transform.position = transform.position - Vector3.forward;
 		particleEffect.transform.parent = transform.parent;
-		// reattach to myself after particle effect finished playing
+		// destroy after finished playing
 		DOVirtual.DelayedCall(1, () => {
 			Destroy(particleEffect);
 		});
