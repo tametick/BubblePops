@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Launcher : MonoBehaviour {
+	internal delegate void ClearAction();
+	internal static event ClearAction OnClear;
+
 	// don't allow trajetories more horizontal than this (see usage below)
 	private const float MinTrajectoryY = .35f;
 	private const int launchVelocity = 12;
@@ -208,7 +211,7 @@ public class Launcher : MonoBehaviour {
 			() => {
 				// see if we just cleared the level
 				if (level.IsCleared()) {
-					level.ShowPerfect();
+					OnClear?.Invoke();
 					enabled = false;
 				}
 			}

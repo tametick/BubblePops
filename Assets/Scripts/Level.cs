@@ -151,6 +151,12 @@ public class Level : MonoBehaviour {
 	internal bool IsCleared() {
 		return bubbles.Values.Count == 0;
 	}
+	private void OnEnable() {
+		Launcher.OnClear += ShowPerfect;
+	}
+	private void OnDisable() {
+		Launcher.OnClear -= ShowPerfect;
+	}
 
 	internal void ShowPerfect() {
 		bonusText.transform.localScale = Vector3.zero;
