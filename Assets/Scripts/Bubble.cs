@@ -136,6 +136,17 @@ public class Bubble : MonoBehaviour {
 		});
 	}
 
+	void OnDrawGizmos() {
+		if (anchor != null && anchor.connectedBody != null) {
+			Gizmos.color = Color.yellow;
+			var attachedFrom = transform;
+			var attachedTo = anchor.connectedBody.transform;
+			if (attachedTo.GetComponent<Bubble>() != null)
+				Gizmos.DrawLine(attachedFrom.position, attachedTo.position);
+		}
+	}
+
+
 	// try to find new anchor bubble to attach to
 	internal Bubble GetNewAnchor() {
 		List<Bubble> neighbors = level.GetNeighbors(gridPosition.x, gridPosition.y);
