@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class Level : MonoBehaviour {
 	// the logical grid of bubbles
@@ -138,7 +139,11 @@ public class Level : MonoBehaviour {
 		}
 
 		// filter out the out of bounds/null neighbors
-		return neighbors.FindAll(n => n != null);
+		neighbors = neighbors.FindAll(n => n != null);
+
+		Assert.IsTrue(neighbors.Count <= 6, $"{x},{y} has invalid number of neighbors: {neighbors.Count}");
+
+		return neighbors;
 	}
 
 	internal void ShiftDownIfNeeded() {
